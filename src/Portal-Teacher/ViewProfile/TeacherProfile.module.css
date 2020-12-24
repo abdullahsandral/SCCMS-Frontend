@@ -1,0 +1,59 @@
+.teacherProfile
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+    background-color: darkcyan;
+    min-height: 100vh;
+}
+.teacherProfile h3{vertical-align: middle;color: gold;}
+.loading 
+{
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 2rem;
+}
+.teacherData
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    row-gap: 1rem;
+    padding: 1rem;
+    color: white;
+    background-color: darkcyan;
+}
+.teacherData img 
+{
+    width: 100%;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+.teacherData p, .teacherProfile h6
+{
+    color: aliceblue;
+}
+
+@media(min-width: 769px)
+{
+    .teacherData
+    {
+        width: 90%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 2rem 1rem;
+    }
+    .profileImge
+    {
+        grid-area: 1 / 2 / 8 / 3;
+        text-align: center;
+    }
+    .profileImge img {width: 75%;}
+    .teacherData img {margin: 0;}
+    .pAddress { grid-area: 8 / 1 / 9 / 3 ;}
+    .mAddress { grid-area: 10 / 1 / 11 / 3 ;}
+    .teacherData h6, .teacherData p
+    {
+        font-size: x-large;
+    }
+}

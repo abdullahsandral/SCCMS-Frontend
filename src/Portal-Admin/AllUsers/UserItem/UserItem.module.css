@@ -1,0 +1,10 @@
+.userItem
+{
+    display: grid;
+    margin-bottom: 10px;
+    grid-template-columns: 11% 40% 40% 9%;
+    padding: .5rem 1rem;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.055);
+    box-shadow: 0 0 2px 1px black
+}

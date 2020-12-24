@@ -1,0 +1,49 @@
+.allUsers
+{
+    padding: 2.5rem;
+    min-height: calc(100vh - 4rem);
+    width: calc(100vw - 225px);
+    display: flex;
+    flex-direction: column;
+    background-color: darkcyan;
+    color: #ffffffee;
+    min-height: 100vh;
+}
+.allUsers h3
+{ 
+    margin-top: 1rem; 
+    text-align: center;
+    color: gold;
+}
+.loading
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.allUsersHeader
+{
+    display: grid;
+    margin: 10px 0;
+    grid-template-columns: 11% 40% 40%  9%;
+    background-color: black;
+    padding: 1rem;
+    font-weight: bolder;
+}
+.usersDetail ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media(max-width:770px)
+{
+    .allUsers { width: 100vw; margin-left: 0;}
+}
+
+@media(max-width:770px)
+{
+    .allUsers { width: 100vw; margin-left: 0; padding: 1.5rem .5rem;}
+}

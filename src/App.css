@@ -1,0 +1,23 @@
+a , a:hover
+{
+    text-decoration: none;
+}
+.mainScreen
+{
+    min-width: 100vw;
+    min-height: calc(100vh - 4rem);
+    margin-top: 4rem;
+    background-image: url('./Assets/bg5.jpg');
+    background-size: cover;
+    background-position: center;
+}
+main
+{
+    margin-top: 4rem;
+}
+@media(min-width:769px)
+{
+    main { margin-left: 225px;}
+}
+
+

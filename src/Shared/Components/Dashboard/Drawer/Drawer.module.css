@@ -1,0 +1,64 @@
+.dawerBackdrop
+{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    opacity: 0.6;
+    left: 0;
+    top: 0;
+    z-index: 53;
+}
+.drawer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: black;
+    width: 250px;
+    padding: 10px 0;
+    position: fixed;
+    z-index: 55;
+    left: 0;
+    top: 0;
+    height: 100vh;
+}
+.drawer a
+{
+    display: flex;
+    width: 100%;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: dimgray;
+}
+.drawer a:hover
+{
+    background-color: white;
+    text-decoration: none;
+    color: dimgray;
+}
+
+
+
+/* .dashboardLink a
+{
+    display: flex;
+    width: 100%;
+    height: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    text-decoration: none;
+    color: white;
+    background-color: dimgray;
+}
+
+.dashboardLink a:hover
+{
+    text-decoration: none;
+    color: #000000;
+} */

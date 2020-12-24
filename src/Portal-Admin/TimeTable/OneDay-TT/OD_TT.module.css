@@ -1,0 +1,112 @@
+.OD_TT 
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: .5rem;
+    column-gap: 1rem;
+    margin-bottom: 1rem;
+}
+.OD_TT h5 {grid-area: 1 / 1 / 2 / 4;}
+.OD_TT select
+{
+    width: 100%;
+    height: 50px;
+    border: none;
+    padding: 0 5px ;
+    border-bottom: 1px solid black;
+}
+
+/* 
+import React, { useEffect } from 'react';
+
+import Input from '../../../Shared/Components/UI Element/Input';
+import {MIN_LENGTH_VALIDATOR , MAX_LENGTH_VALIDATOR} from '../../../Shared/Util/Validators/Validator';
+import {useForm} from '../../../Shared/Hooks/Form-Hook';
+import classes from './OD_TT.module.css';
+
+const OD_TT = props =>
+{
+    const [formState , inputChangeHandler] = useForm({
+        L1 : {
+            inputValue : props.subjectData.lec1,
+            inputisValid : true
+        },
+        L2 : {
+            inputValue : props.subjectData.lec2,
+            inputisValid : true
+        },
+        L3 : {
+            inputValue : props.subjectData.lec3,
+            inputisValid : true
+        },
+        L4 : {
+            inputValue : props.subjectData.lec4,
+            inputisValid : true
+        },
+        L5 : {
+            inputValue : props.subjectData.lec5,
+            inputisValid : true
+        },
+        L6 : {
+            inputValue : props.subjectData.lec6,
+            inputisValid : true
+        },
+        L7 : {
+            inputValue : props.subjectData.lec7,
+            inputisValid : true
+        },
+    } , false)
+
+    useEffect(() => {props.fState(formState,props.day)})
+
+    return <>
+    
+        <form className={classes.OD_TT} onSubmit={e =>{ e.preventDefault(); console.log(formState);}}>
+            <h5>{props.day}</h5>
+            <Input  
+                id = "L1" type = "Input" fieldType = 'text'  isValid = {formState.inputs.L1.inputisValid} 
+                pHolder = "Enter Subject for 1st Lecture" initialValue = {formState.inputs.L1.inputValue}
+                Error = "Subject Field is Required with MAXIMUM LENGTH of 15 Words" onInputChange = {inputChangeHandler}
+                validators = {[MIN_LENGTH_VALIDATOR(3),MAX_LENGTH_VALIDATOR(15)]} 
+            />
+            <Input  
+                    id = "L2" type = "Input" fieldType = 'text'  isValid = {formState.inputs.L2.inputisValid} 
+                    pHolder = "Enter Subject for 2nd Lecture" initialValue = {formState.inputs.L2.inputValue}
+                    Error = "Subject Field is Required with MAXIMUM LENGTH of 15 Words" onInputChange = {inputChangeHandler}
+                    validators = {[MIN_LENGTH_VALIDATOR(3),MAX_LENGTH_VALIDATOR(15)]} 
+            />
+            <Input  
+                    id = "L3" type = "Input" fieldType = 'text'  isValid = {formState.inputs.L3.inputisValid} 
+                    pHolder = "Enter Subject for 3rd Lecture" initialValue = {formState.inputs.L3.inputValue}
+                    Error = "Subject Field is Required with MAXIMUM LENGTH of 15 Words" onInputChange = {inputChangeHandler}
+                    validators = {[MIN_LENGTH_VALIDATOR(3),MAX_LENGTH_VALIDATOR(15)]} 
+            />
+            <Input  
+                    id = "L4" type = "Input" fieldType = 'text'  isValid = {formState.inputs.L4.inputisValid} 
+                    pHolder = "Enter Subject for 4th Lecture" initialValue = {formState.inputs.L4.inputValue}
+                    Error = "Subject Field is Required with MAXIMUM LENGTH of 15 Words" onInputChange = {inputChangeHandler}
+                    validators = {[MIN_LENGTH_VALIDATOR(3),MAX_LENGTH_VALIDATOR(15)]} 
+            />
+            <Input  
+                    id = "L5" type = "Input" fieldType = 'text'  isValid = {formState.inputs.L5.inputisValid} 
+                    pHolder = "Enter Subject for 5th Lecture" initialValue = {formState.inputs.L5.inputValue}
+                    Error = "Subject Field is Required with MAXIMUM LENGTH of 15 Words" onInputChange = {inputChangeHandler}
+                    validators = {[MIN_LENGTH_VALIDATOR(3),MAX_LENGTH_VALIDATOR(15)]} 
+            />
+            <Input  
+                    id = "L6" type = "Input" fieldType = 'text'  isValid = {formState.inputs.L6.inputisValid} 
+                    pHolder = "Enter Subject for 6th Lecture" initialValue = {formState.inputs.L6.inputValue}
+                    Error = "Subject Field is Required with MAXIMUM LENGTH of 15 Words" onInputChange = {inputChangeHandler}
+                    validators = {[MIN_LENGTH_VALIDATOR(3),MAX_LENGTH_VALIDATOR(15)]} 
+            />
+            <Input  
+                    id = "L7" type = "Input" fieldType = 'text'  isValid = {formState.inputs.L7.inputisValid} 
+                    pHolder = "Enter Subject for 7th Lecture" initialValue = {formState.inputs.L7.inputValue}
+                    Error = "Subject Field is Required with MAXIMUM LENGTH of 15 Words" onInputChange = {inputChangeHandler}
+                    validators = {[MIN_LENGTH_VALIDATOR(3),MAX_LENGTH_VALIDATOR(15)]} 
+            />
+        </form>
+    </>
+}
+
+export default OD_TT; */

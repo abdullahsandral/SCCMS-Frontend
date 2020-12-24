@@ -1,0 +1,4 @@
+export const GET_ALL_CLASSES = 'GET_ALL_CLASSES';
+export const SET_ALL_CLASSES = 'SET_ALL_CLASSES';
+export const USER_LOGGED_IN  = 'USER_LOGGED_IN';
+export const USER_LOGGED_OUT  = 'USER_LOGGED_OUT';
