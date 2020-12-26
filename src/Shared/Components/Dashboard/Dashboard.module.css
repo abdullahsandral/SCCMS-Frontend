@@ -1,0 +1,33 @@
+.dashboard
+{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    background-color: black;
+    width: 225px;
+    height: 100vh;
+    position: fixed;
+}
+.dashboard a
+{
+    display: flex;
+    width: 100%;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: dimgray;
+}
+.dashboard a:hover
+{
+    background-color: white;
+    text-decoration: none;
+    color: dimgray;
+}
+
+@media(max-width:770px)
+{
+    .dashboard{display: none;}
+}

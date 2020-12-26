@@ -1,0 +1,81 @@
+.header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 10px;
+    background-color: green;
+    width: 100%;
+    color: wheat;
+    box-shadow: 1px 1px 3px 1px black;;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 50;
+}
+
+.header img 
+{    
+    width: 3.5rem;
+    height: 3rem;
+    border-radius: 5px;
+    box-shadow: 0 0 6px 1px black;
+}
+.header .sBtn
+{
+    background-color: #d6d629;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: black;
+    margin: 0 10px;
+    width: 125px;
+    text-align: center;
+    font-weight: 500;
+    border: 2px solid #ffff00;
+}
+.header .sBtn:hover
+{
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: yellow;
+    border: 3px solid black;
+}
+.dashboardToggler
+{
+    display: flex;
+    flex-direction: column;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    background: transparent;
+    padding: 0;
+    justify-content: center;
+}
+.dashboardToggler span
+{
+    height: .3rem;
+    width: 2.7rem;
+    margin: .2rem;
+    background-color: aliceblue;
+}
+.header a,.header a:hover
+{
+    text-decoration: none;
+    color: wheat;
+}
+@media(max-width:770px)
+{
+    .dashboard
+    {
+        display: none;
+    }
+}
+@media(min-width:771px)
+{
+    .dashboardToggler
+    {
+        display: none;
+    }
+}

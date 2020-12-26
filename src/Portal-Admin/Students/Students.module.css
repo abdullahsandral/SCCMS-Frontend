@@ -1,0 +1,59 @@
+.allStudents
+{
+    padding: 2.5rem;
+    min-height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+    background-color: darkcyan;
+    color: #ffffffee;
+    min-height: 100vh;
+}
+.allStudents h3
+{ 
+    text-align: center;
+    color: gold;
+}
+.allStudents div:first-child
+{
+    display: flex;
+    justify-content: space-between;
+} 
+.loading
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.allStudentsHeader
+{
+    display: grid;
+    margin: 10px 0;
+    grid-template-columns: 8% 33% 33% 20% 6%;
+    background-color: black;
+    color: white;
+    padding: .5rem;
+    font-weight: bolder;
+}
+.studentsDetail ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.studentItem
+{
+    display: grid;
+    margin-bottom: 10px;
+    grid-template-columns:  8% 33% 33% 20% 6%;
+    padding: .5rem;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.055);
+    box-shadow: 0 0 2px 1px black;
+    cursor: pointer;
+}
+
+@media(max-width:770px)
+{
+    .allStudents { width: 100vw; margin-left: 0; padding: 2.5rem .5rem;}
+}

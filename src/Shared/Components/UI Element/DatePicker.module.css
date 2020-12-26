@@ -1,0 +1,11 @@
+.dob 
+{
+    position: relative;
+    display: flex;
+    height: 3rem;
+    padding: 0 .5rem;
+    background-color: white; 
+    align-items: center;
+    justify-content: space-between; 
+}
+.calendar{position: absolute; max-width: 320px; top: 2.8rem; left: 0; z-index: 10;}

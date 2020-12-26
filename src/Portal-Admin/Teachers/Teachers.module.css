@@ -1,0 +1,59 @@
+.allTeachers
+{
+    padding: 2.5rem;
+    min-height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+    background-color: darkcyan;
+    color: #ffffffee;
+    min-height: 100vh;
+}
+.allTeachers h3
+{
+    text-align: center;
+    color: gold;
+}
+
+.allTeachers div:first-child
+{
+    display: flex;
+    justify-content: space-between;
+} 
+.loading
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.allTeachersHeader
+{
+    display: grid;
+    margin: 10px 0;
+    grid-template-columns: 8% 28% 29% 20% 15%;
+    background-color: black;
+    color: white;
+    padding: .5rem;
+    font-weight: bolder;
+}
+.teachersDetail ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.teacherItem
+{
+    display: grid;
+    position: relative;
+    margin-bottom: 10px;
+    grid-template-columns: 8% 28% 29% 20% 15%;
+    padding: .5rem;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.055);
+    box-shadow: 0 0 2px 1px black;
+    cursor: pointer;
+}
+@media(max-width:770px)
+{
+    .allTeachers { width: 100vw; margin-left: 0; padding: 2.5rem .5rem;}
+}

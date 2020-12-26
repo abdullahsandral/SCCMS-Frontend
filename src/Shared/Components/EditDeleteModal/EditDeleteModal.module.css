@@ -1,0 +1,37 @@
+
+.backdrop
+{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000bd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 66;
+    cursor: default;
+}
+.Btns
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 7rem;
+    background-color: white;
+    border-radius: 5px;
+}
+.Btns button 
+{ 
+    padding: .5rem; 
+    width: 150px; 
+    margin: 5px; 
+    background-color: green; 
+    border: none; 
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+.Btn button:last-child { background-color: red;}

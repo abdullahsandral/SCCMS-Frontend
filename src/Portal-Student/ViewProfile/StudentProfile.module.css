@@ -1,0 +1,59 @@
+.studentProfile
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+    background-color: darkcyan;
+    min-height: 100vh;
+}
+.studentProfile h3{vertical-align: middle;color: gold;}
+.loading 
+{
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 2rem;
+}
+.studentData
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    row-gap: 1rem;
+    padding: 1rem;
+    color: white;
+    background-color: darkcyan;
+}
+.studentData img 
+{
+    width: 100%;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+.studentData p, .studentProfile h6
+{
+    color: aliceblue;
+}
+
+@media(min-width: 769px)
+{
+    .studentData
+    {
+        width: 90%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 2rem 1rem;
+    }
+    .profileImge
+    {
+        grid-area: 1 / 2 / 10 / 3;
+        text-align: center;
+    }
+    .profileImge img {width: 75%;}
+    .studentData img {margin: 0;}
+    .pAddress { grid-area: 10 / 1 / 11 / 3 ;}
+    .mAddress { grid-area: 12 / 1 / 13 / 3 ;}
+    .studentData h6, .studentData p
+    {
+        font-size: x-large;
+    }
+}
