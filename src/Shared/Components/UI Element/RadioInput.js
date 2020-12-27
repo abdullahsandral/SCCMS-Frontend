@@ -12,7 +12,8 @@ const ImageInput = props =>
 
     return <>
         <input checked={props.iValue===props.value} type='radio' 
-        onChange={valueChangeHandler} value={props.value} name={props.name} /> {props.title}
+        onChange={valueChangeHandler} value={props.value} name={props.name} id={props.value}/>
+        <label style={{margin: 0}} htmlFor={props.value}>{props.title}</label>
     </>
 }
 

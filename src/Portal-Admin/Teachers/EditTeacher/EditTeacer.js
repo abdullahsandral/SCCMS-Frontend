@@ -4,110 +4,62 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Backdrop from '../../../Shared/Components/Backdrop/Backdrop';
 import Spinner from '../../../Shared/Components/UI Element/Spinner';
-import RadioInput from '../../../Shared/Components/UI Element/RadioInput';
-import DatePicker from '../../../Shared/Components/UI Element/DatePicker';
 import ImageInput from '../../../Shared/Components/UI Element/ImageInput';
-import Input from '../../../Shared/Components/UI Element/Input';
-import { MIN_LENGTH_VALIDATOR, EMAIL_VALIDATOR, MAX_LENGTH_VALIDATOR, PH_NUMBER_VALIDATOR, CNIC_VALIDATOR } from '../../../Shared/Util/Validators/Validator';
-import { useForm } from '../../../Shared/Hooks/Form-Hook';
 import classes from '../AddTeacher/AddTeacher.module.css';
 import { getSingleTeacher } from '../../../Actions/TeachersActions';
+import isEmpty from '../../../Shared/Util/Validators/isEmpty';
 
 const EditTeacher = props => {
    const tID = useParams().tID;
-   const { single_teacher: teacher } = useSelector(state => state?.teachers);
-   const [editing, setEditing] = useState(false)
+   const { single_teacher: teacher, teacher_loading } = useSelector(state => state?.teachers);
+
+   const teacherDataFormat = { firstName: '', lastName: '', userImage: '', fatherName: '', CNIC: '', Contact: '', DOB: '', email: '', qualification: '', pAddress: '', mAddress: '', gender: '' };
+   const teacherDataErrorsFormat = { firstName: false, lastName: false, userImage: false, fatherName: false, CNIC: false, Contact: false, DOB: false, email: false, qualification: false, pAddress: false, mAddress: false, gender: false };
+
+   const [ teacherData, setTeacherData ] = useState({...teacherDataFormat})
+   const [ teacherDataErrors, setTeacherDataErrors ] = useState({...teacherDataErrorsFormat})
+
+   const inputChangeHandler = ({ target: { name, value }}) => {
+      setTeacherData( { ...teacherData, [name]: value } );
+      isEmpty(value) && setTeacherDataErrors( { ...teacherDataErrors, [name]: 'Field is required' } )
+   }
 
    const dispatch = useDispatch();
    const history = useHistory();
 
-   const [formState, inputChangeHandler, dataSetter] = useForm({
-      firstName: {
-         inputValue: '',
-         inputisValid: false
-      },
-      lastName: {
-         inputValue: '',
-         inputisValid: false
-      },
-      userImage: {
-         inputValue: '',
-         inputisValid: false
-      },
-      fatherName: {
-         inputValue: '',
-         inputisValid: false
-      },
-      CNIC: {
-         inputValue: '',
-         inputisValid: false
-      },
-      Contact: {
-         inputValue: '',
-         inputisValid: false
-      },
-      DOB: {
-         inputValue: 'Select DOB',
-         inputisValid: false
-      },
-      email: {
-         inputValue: '',
-         inputisValid: false
-      },
-      qualification: {
-         inputValue: '',
-         inputisValid: false
-      },
-      pAddress: {
-         inputValue: '',
-         inputisValid: false
-      },
-      mAddress: {
-         inputValue: '',
-         inputisValid: false
-      },
-      gender: {
-         inputValue: '',
-         inputisValid: false
-      },
-      password: {
-         inputValue: '',
-         inputisValid: false
-      },
-   }, false);
 
    const updateTeacherHandler = async e => {
       e.preventDefault();
-      console.log(formState)
+      console.log(teacherData)
       const newTeacherData = new FormData();
-      const { firstName, lastName, userImage, fatherName, CNIC, Contact, DOB, email, qualification, pAddress, mAddress, gender, password } = formState.inputs || {}
-      newTeacherData.append('firstName', firstName?.inputValue);
-      newTeacherData.append('lastName', lastName?.inputValue);
-      newTeacherData.append('newTeacherImage', userImage?.inputValue)
-      newTeacherData.append('fatherName', fatherName?.inputValue);
-      newTeacherData.append('CNIC', CNIC?.inputValue);
-      newTeacherData.append('Contact', Contact?.inputValue);
-      newTeacherData.append('DOB', DOB?.inputValue);
-      newTeacherData.append('email', email?.inputValue);
-      newTeacherData.append('qualification', qualification?.inputValue);
-      newTeacherData.append('pAddress', pAddress?.inputValue);
-      newTeacherData.append('mAddress', mAddress?.inputValue);
-      newTeacherData.append('gender', gender?.inputValue);
-      newTeacherData.append('password', password?.inputValue);
+      const { firstName, lastName, userImage, fatherName, CNIC, Contact, DOB, email, qualification, pAddress, mAddress, gender, password } = teacherData
+      newTeacherData.append('firstName', firstName);
+      newTeacherData.append('lastName', lastName);
+      newTeacherData.append('newTeacherImage', userImage)
+      newTeacherData.append('fatherName', fatherName);
+      newTeacherData.append('CNIC', CNIC);
+      newTeacherData.append('Contact', Contact);
+      newTeacherData.append('DOB', DOB);
+      newTeacherData.append('email', email);
+      newTeacherData.append('qualification', qualification);
+      newTeacherData.append('pAddress', pAddress);
+      newTeacherData.append('mAddress', mAddress);
+      newTeacherData.append('gender', gender);
+      newTeacherData.append('password', password);
 
-      try {
-         setEditing(true)
-         const response = await fetch(`http://localhost:5000/api/admin/teachers/${tID}`,
-            {
-               method: 'POST',
-               body: newTeacherData
-            });
-         const responseData = await response.json();
+      // try {
+      //    setEditing(true)
+      //    const response = await fetch(`http://localhost:5000/api/admin/teachers/${tID}`,
+      //       {
+      //          method: 'POST',
+      //          body: newTeacherData
+      //       });
+      //    const responseData = await response.json();
 
-         if (!response.ok) { setEditing(false); alert(responseData.errorCode + "\n" + responseData.errorMsg) }
-         else { setEditing(false); history.push(`/teachers`) }
+      //    if (!response.ok) { setEditing(false); alert(responseData.errorCode + "\n" + responseData.errorMsg) }
+      //    else { setEditing(false); history.push(`/teachers`) }
 
-      } catch (error) { setEditing(false); alert(error) }
+      // } catch (error) { setEditing(false); alert(error) }
 
    }
 
@@ -116,71 +68,18 @@ const EditTeacher = props => {
     }, [tID, dispatch])
 
     useEffect( () => {
-      const { First_Name, Last_Name, Image, Father_Name, CNIC_Number, Contact_Number, E_Mail, DOB, Permanent_Address, Mailing_Address, Qualification, Gender, Password } = teacher || {};
-      teacher && dataSetter(
-         {
-            firstName: {
-               inputValue: First_Name,
-               inputisValid: true
-            },
-            lastName: {
-               inputValue: Last_Name,
-               inputisValid: true
-            },
-            userImage: {
-               inputValue: Image,
-               inputisValid: true
-            },
-            fatherName: {
-               inputValue: Father_Name,
-               inputisValid: true
-            },
-            CNIC: {
-               inputValue: CNIC_Number,
-               inputisValid: true
-            },
-            Contact: {
-               inputValue: Contact_Number,
-               inputisValid: true
-            },
-            DOB: {
-               inputValue: DOB,
-               inputisValid: true
-            },
-            email: {
-               inputValue: E_Mail,
-               inputisValid: true
-            },
-            qualification: {
-               inputValue: Qualification,
-               inputisValid: true
-            },
-            pAddress: {
-               inputValue: Permanent_Address,
-               inputisValid: true
-            },
-            mAddress: {
-               inputValue: Mailing_Address,
-               inputisValid: true
-            },
-            gender: {
-               inputValue: Gender,
-               inputisValid: true
-            },
-            password: {
-               inputValue: Password,
-               inputisValid: true
-            },
-         }, true);
-    }, [teacher, dataSetter])
+      const { First_Name, Last_Name, Image, Father_Name, CNIC_Number, Contact_Number, E_Mail, DOB, Permanent_Address, Mailing_Address, Qualification, Gender } = teacher || {};
+      setTeacherData({ firstName: First_Name, lastName: Last_Name, userImage: Image, fatherName: Father_Name, CNIC: CNIC_Number, Contact: Contact_Number, DOB: DOB, email: E_Mail, qualification: Qualification, pAddress: Permanent_Address, mAddress: Mailing_Address, gender: Gender})
+    }, [teacher])
 
-const { firstName, lastName, userImage, fatherName, CNIC, Contact, DOB, email, qualification, pAddress, mAddress, gender } = formState.inputs || {}
+const { firstName, lastName, userImage, fatherName, CNIC, Contact, DOB, email, qualification, pAddress, mAddress, gender } = teacherData
 
+console.log(gender)
 if (!teacher) return <div className={classes.editTeacher}> <h3>Loading...</h3> </div>
 else
    return <>
       <div className={classes.editTeacher}>
-         {editing &&
+         {teacher_loading &&
             <Backdrop>
                <Spinner />
                <h2 style={{ color: 'gold' }}>Editing Teacher Data...</h2>
@@ -188,90 +87,65 @@ else
          }
          <h3>Edit Teacher</h3>
          <form onSubmit={updateTeacherHandler}>
-            <div> <Input
-               id="firstName" type="Input" fieldType='text' initialValue={firstName?.inputValue}
-               pHolder="Enter Teacher's First Name" isValid={firstName?.inputisValid}
-               Error="Name Field is Required with MAXIMUM LENGTH of 30 Words" onInputChange={inputChangeHandler}
-               validators={[MIN_LENGTH_VALIDATOR(1), MAX_LENGTH_VALIDATOR(30)]}
-            /></div>
-            <div> <Input
-               id="lastName" type="Input" fieldType='text' initialValue={lastName.inputValue}
-               pHolder="Enter Teacher's Last Name" isValid={lastName.inputisValid}
-               Error="Name Field is Required with MAXIMUM LENGTH of 20 Words" onInputChange={inputChangeHandler}
-               validators={[MIN_LENGTH_VALIDATOR(1), MAX_LENGTH_VALIDATOR(20)]}
-            /></div>
-            <div className={classes.image}><ImageInput
+            <div>
+               <input name="firstName" type='text' value={firstName} placeholder={`Enter Teacher's First Name`} onChange={inputChangeHandler}  />
+            </div>
+            <div>
+               <input name="lastName" type='text' value={lastName} placeholder={`Enter Teacher's Last Name`} onChange={inputChangeHandler}  />
+            </div>
+            <div className={classes.image}>
+               <ImageInput
                id='userImage' Error="Please Pick an Image" height='200px'
-               src={`http://localhost:5000/uploads/images/${userImage.inputValue}`}
-               onInputChange={inputChangeHandler}
-            /></div>
-            <div className={classes.fatherName}><Input
-               id="fatherName" type="Input" fieldType='text' initialValue={fatherName.inputValue}
-               pHolder="Enter Teacher's Father Name" isValid={fatherName.inputisValid}
-               Error="Please Enter a Name With MAX LENGTH Of 30 Words" onInputChange={inputChangeHandler}
-               validators={[MIN_LENGTH_VALIDATOR(1), MAX_LENGTH_VALIDATOR(30)]}
-            /></div>
-            <div><Input
-               id="CNIC" type="Input" fieldType='text' initialValue={CNIC.inputValue}
-               pHolder="CNIC No : XXXXX-XXXXXXX-X" isValid={CNIC.inputisValid}
-               Error="Please Enter a Valid CNIC e.g XXXXX-XXXXXXX-X " onInputChange={inputChangeHandler}
-               max={15} min={15}
-               validators={[CNIC_VALIDATOR()]}
-            /></div>
-            <div> <Input
-               id="Contact" type="Input" fieldType='text' initialValue={Contact.inputValue}
-               pHolder="Enter Teacher's Mobile" isValid={Contact.inputisValid}
-               Error="Contact Field is Required e.g 03XX-XXXXXXX" onInputChange={inputChangeHandler}
-               validators={[PH_NUMBER_VALIDATOR()]} max={12} min={12}
-            /></div>
-            <DatePicker
-               id='DOB'
-               Error='Select DOB'
-               onDateChange={inputChangeHandler}
-               iValue={DOB.inputValue}
-            />
-            <div className={classes.email}><Input
-               id="email" type="Input" fieldType='email' initialValue={email.inputValue}
-               pHolder="Enter Email Address" isValid={email.inputisValid}
-               Error="Please Enter a Valid Email" onInputChange={inputChangeHandler}
-               validators={[EMAIL_VALIDATOR()]}
-            /></div>
-            <div> <Input
-               id="qualification" type="Input" fieldType='text' initialValue={qualification.inputValue}
-               pHolder="Enter Teacher's Highest Qualification" isValid={qualification.inputisValid}
-               Error="Contact Field is Required with FIXED LENGTH of 11 Words" onInputChange={inputChangeHandler}
-               validators={[MIN_LENGTH_VALIDATOR(11), MAX_LENGTH_VALIDATOR(11)]}
-            /></div>
-            <div className={classes.pContact}> <Input
-               id="pAddress" type="Input" fieldType='text' initialValue={pAddress.inputValue}
-               pHolder="Enter Teacher's Permanent Address" isValid={pAddress.inputisValid}
-               Error="Please Enter Permanent Address With MAX LENGTH Of 100 Words" onInputChange={inputChangeHandler}
-               validators={[MIN_LENGTH_VALIDATOR(1), MAX_LENGTH_VALIDATOR(100)]}
-            /></div>
-            <div className={classes.mContact}> <Input
-               id="mAddress" type="Input" fieldType='text' initialValue={mAddress.inputValue}
-               pHolder="Enter Teacher's Mailing Address" isValid={mAddress.inputisValid}
-               Error="Please Enter Mailing Address With MAX LENGTH Of 100 Words" onInputChange={inputChangeHandler}
-               validators={[MIN_LENGTH_VALIDATOR(1), MAX_LENGTH_VALIDATOR(100)]}
-            /></div>
-            {/* <div> <Input
-               id="password" type="Input" fieldType='text'
-               pHolder="Enter Student's Password" isValid={true}
-               Error="Please Enter a Password Including Special Small and Capital Word MIN=8" onInputChange={inputChangeHandler}
-               validators={[MIN_LENGTH_VALIDATOR(0), MAX_LENGTH_VALIDATOR(100)]}
-            /></div> */}
-            <div className={classes.gender}>
-               <b>Gender : </b>
-               <RadioInput iValue={gender.inputValue} value='Male' name='gender'
-                  inputChangeHandler={inputChangeHandler} title='Male' id='gender'
-               />
-               <RadioInput iValue={gender.inputValue} value='Female' name='gender'
-                  inputChangeHandler={inputChangeHandler} title='Female' id='gender'
+               src={`http://localhost:5000/uploads/images/${userImage}`}
+               onInputChange={(id, value) => inputChangeHandler({target: { name: id, value}})}
                />
             </div>
-            <button className={`btn ${formState.formIsValid ? 'btn-success' : 'btn-danger'}`} disabled={!formState.formIsValid}>
+            <div className={classes.fatherName}>
+               <input name="fatherName" type='text' value={fatherName} placeholder={`Enter Teacher's Father Name`} onChange={inputChangeHandler}  />
+            </div>
+            <div>
+               <input name="CNIC" type='text' value={CNIC} placeholder={`CNIC No : XXXXX-XXXXXXX-X`} onChange={inputChangeHandler}  />
+            </div>
+            <div>
+               <input name="Contact" type='text' value={Contact} placeholder={`Contact Field is Required e.g 03XX-XXXXXXX`} onChange={inputChangeHandler}  />
+            </div>
+            {/* <DatePicker
+               id='DOB'
+               Error='Select DOB'
+               onInputChange={(id, value) => inputChangeHandler({target: { id, value}})}
+               iValue={DOB}
+            /> */}
+            <div>
+               <input name="DOB" type='date' value={DOB} placeholder={`Enter DOB`} onChange={inputChangeHandler}  />
+            </div>
+            <div className={classes.email}>
+               <input name="email" type='text' value={email} placeholder={`Enter Email Address`} onChange={inputChangeHandler}  />
+            </div>
+            <div>
+               <input name="qualification" type='text' value={qualification} placeholder={`Enter Teacher's Highest Qualification`} onChange={inputChangeHandler}  />
+            </div>
+            <div className={classes.pContact}>
+               <input name="pAddress" type='text' value={pAddress} placeholder={`Enter Teacher's Permanent Address`} onChange={inputChangeHandler}  />
+            </div>
+            <div className={classes.mContact}> 
+               <input id="mAddress" type='text' value={mAddress} placeholder={`Enter Teacher's Permanent Address`} onChange={inputChangeHandler}  />
+            </div>
+            <div className={classes.gender}>
+               <input id="male" name='gender' type='radio' checked={gender === 'Male'} value='male' onChange={inputChangeHandler}  />
+               <label style={{ margin: 0}} htmlFor='male'>Male</label>
+               <input id="female" name='gender' type='radio' checked={gender === 'Female'} value='female' onChange={inputChangeHandler}  />
+               <label style={{ margin: 0}} htmlFor='female'>Female</label>
+               {/* <b>Gender : </b>
+               <RadioInput iValue={gender} value='Male' name='gender'
+                  onInputChange={(id, value) => inputChangeHandler({target: { id, value}})} title='Male' id='gender'
+               />
+               <RadioInput iValue={gender} value='Female' name='gender'
+                  onInputChange={(id, value) => inputChangeHandler({target: { id, value}})} title='Female' id='gender'
+               /> */}
+            </div>
+            <button className={`btn ${teacherData ? 'btn-success' : 'btn-danger'}`} disabled={!teacherData}>
                Edit Teacher
-                </button>
+            </button>
          </form>
       </div>
    </>

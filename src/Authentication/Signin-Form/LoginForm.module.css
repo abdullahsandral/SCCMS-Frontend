@@ -29,7 +29,11 @@
     width: 100%;
     border: none;
     padding: 5px;
-    margin-bottom: 1rem;
+    margin-bottom: 5px;
+}
+.addPlaceFORM p {
+    color: greenyellow;
+    margin-bottom: 5px;
 }
 
 

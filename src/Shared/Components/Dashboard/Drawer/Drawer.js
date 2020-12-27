@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux';
 
 const DashboardLink = props =>
 {
-    const Role = useSelector( state => state?.authentication?.user_role)
+    const Role = useSelector( state => state?.authentication?.role)
     let Links;
-
-    if(Role==='Admin')
+    
+    if(Role==='admin')
     Links = <>
         <Link to='/teachers'>Teachers</Link>
         <Link to='/students'>Students</Link>
@@ -19,13 +19,13 @@ const DashboardLink = props =>
         <Link to='/examSchedule'>Exam Schedule</Link>
     </>
     
-    else if(Role==='Teacher')
+    else if(Role==='teacher')
     Links = <>
         <Link to='/'>View Profile</Link>
         <Link to='/attendance'>Mark Attendance</Link>
     </>
 
-    else if(Role==='Student')
+    else if(Role==='student')
     Links = <>
         <Link to='/viewProfile'>View Profile</Link>
         <Link to='/attendance'>View Attendance</Link>

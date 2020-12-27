@@ -34,7 +34,7 @@ if (localStorage.user) {
 }
 const  App = () =>
 {
-  const { authenticated: signin, user_role: role } = useSelector( state => state?.authentication) || {}
+  const { authenticated: signin, role } = useSelector( state => state?.authentication) || {}
 
 let Routes;
 if(!signin) 
@@ -49,7 +49,7 @@ if(!signin)
       <Redirect to='/' />
     </Switch>
   </>
-  else if(signin && role==='Admin')
+  else if(signin && role==='admin')
   Routes = <>
     <Dashboard />
     <main>
@@ -97,7 +97,7 @@ if(!signin)
       </Switch>
     </main>
   </>
-  else if(signin && role==='Teacher')
+  else if(signin && role==='teacher')
   Routes = <>
   <Dashboard />
     <main>
@@ -113,7 +113,7 @@ if(!signin)
     </main>
   </>
 
-  else if(signin && role==='Student')
+  else if(signin && role==='student')
   Routes = <>
   <Dashboard />
     <main>

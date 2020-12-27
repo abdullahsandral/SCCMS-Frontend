@@ -1,82 +1,54 @@
-import React , {useEffect} from 'react';
+import React , {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
 import {UserLogin} from '../../Actions/UsersActions';
-import Input from '../../Shared/Components/UI Element/Input';
 import Spinner from '../../Shared/Components/UI Element/Spinner';
 import Backdrop from '../../Shared/Components/Backdrop/Backdrop';
-import {useForm} from '../../Shared/Hooks/Form-Hook';
-import {MIN_LENGTH_VALIDATOR , EMAIL_VALIDATOR} from '../../Shared/Util/Validators/Validator';
 import classes from './LoginForm.module.css';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import isEmpty from '../../Shared/Util/Validators/isEmpty';
+
+const errorDetails = {
+    user_name: 'Username is a required Field', password: 'Password is a required Field', role: 'Role is a required Field'
+}
 
 const LoginForm = () =>
 { 
     const history = useHistory()
     const dispatch = useDispatch();
-    const { authenticated, signin_loading } = useSelector( state => state.authentication);
-    const [formState , inputChangeHandler] = useForm({
-        userName : {
-            inputValue : '',
-            inputisValid : false
-        },
-        role :{
-            inputValue : '',
-            inputisValid : false
-        },
-        password : {
-            inputValue : '',
-            inputisValid : false
-        },
-    } , false)
-      
+    const { authenticated, signin_loading } = useSelector( state => {console.log(state); return state.authentication});
+
+    const [ loginData, setLoginData ] = useState({ user_name: '', password: '', role: '' });
+    const [ loginDataErrors, setLoginDataErrors ] = useState({ user_name: false, password: false, role: false });
+    
+    const inputChangeHandler = ({ target: { value, name }}) => {
+        setLoginData({ ...loginData, [name]: value });
+        !isEmpty(value) && setLoginDataErrors({ ...loginDataErrors, [name]: false })
+    }
+    const validateForm = () => {
+        let valid = true;
+        const errors = { ...loginDataErrors }
+        for(let field in loginData) {
+            if(isEmpty(loginData[field])) {
+                errors[field] = errorDetails[field];
+                valid=false;
+            }
+        }
+        setLoginDataErrors(errors)
+        return valid;
+    }
     const submitForm = async e =>
     {
         e.preventDefault();
-        const data = {
-            userName: formState.inputs.userName.inputValue,
-            password: formState.inputs.password.inputValue,
-            role: formState.inputs.role.inputValue,
-        }
-        dispatch(UserLogin(data))
-        // try 
-        // {setSignIn(true);
-        //     const response = await fetch(`http://localhost:5000/api/shared/signin`,
-        //     {
-        //         method : 'POST',
-        //         headers : {'Content-Type' : 'application/json'},
-        //         body : JSON.stringify(
-        //             {
-        //                 userName : formState.inputs.userName.inputValue,
-        //                 password : formState.inputs.password.inputValue,
-        //                 role : formState.inputs.role.inputValue,
-        //             }
-        //         )
-        //     })
-
-        //     const responseData = await response.json();
-        //     if(!response.ok)
-        //     {
-        //         setSignIn(false);   
-        //         alert(responseData.errorCode+"\n"+responseData.errorMsg);
-        //     }
-        //     else
-        //     {
-        //         setSignIn(false);   
-        //         Authenticated.login(responseData.userRole,responseData.userId,responseData.userImage)
-        //     }
-
-        // } catch (error) {    setSignIn(false);   alert(error);  }
+        const isValid = validateForm()
+        isValid && dispatch(UserLogin(loginData))
     }  
-
-    useEffect(()=> {
-        inputChangeHandler('role','Admin',true);
-        // if(Authenticated) history.push
-        },[inputChangeHandler])
     useEffect(() => {
         authenticated && history.push('/')
     }, [authenticated, history])
+
+    const { user_name, role, password} = loginData
     return(
         <div className={classes.center}>
              {signin_loading && 
@@ -87,29 +59,22 @@ const LoginForm = () =>
             }
             <form className = {classes.addPlaceFORM} onSubmit = {submitForm}>
                 <h3 style={{alignSelf: 'center'}}>SignIn</h3>
-                <Input  
-                    id = "userName" type = "Input" fieldType = 'email' Label = "Email" 
-                    pHolder = "Enter Email Address" rClass = 'gYellow'
-                    Error = "Please Enter a Valid Email" onInputChange = {inputChangeHandler}
-                    validators = {[EMAIL_VALIDATOR()]} 
-                />
+                <label><b>Username</b></label>
+                <input name='user_name' type='text' placeholder='Enter your username' value={user_name} onChange={inputChangeHandler} />
+                {loginDataErrors?.user_name && <p>{loginDataErrors?.user_name}</p>}
                 <label><b>Select Your Role</b></label>
-                <select className= {classes.classSelecter} value={formState.inputs.role.inputValue}
-                onChange={e => inputChangeHandler('role',e.target.value,!!e.target.value)}>
+                <select name='role' className= {classes.classSelecter} value={role} onChange={inputChangeHandler}>
                     <option value=''>Select A Role</option>
-                    <option value='Admin'>Admin</option>
-                    <option value='Student'>Student</option>
-                    <option value='Teacher'>Teacher</option>
+                    <option value='admin'>Admin</option>
+                    <option value='student'>Student</option>
+                    <option value='teacher'>Teacher</option>
                 </select>
-                <Input  
-                    id = "password" type = "Input" fieldType = 'password'  Label = "Password" 
-                    pHolder = "Enter Password" rClass = 'gYellow'
-                    Error = "Password Field is Required" onInputChange = {inputChangeHandler}
-                    validators = {[MIN_LENGTH_VALIDATOR(1)]}
-                />
-
-                <button className = 'btn btn-outline-success p-2 mt-3' disabled={!formState.formIsValid}>
-                LOG IN 
+                {loginDataErrors?.role && <p>{loginDataErrors?.role}</p>}
+                <label><b>Password</b></label>
+                <input name='password' type='password' placeholder='Enter your username' value={password} onChange={inputChangeHandler} />
+                {loginDataErrors?.password && <p>{loginDataErrors?.password}</p>}
+                <button className = 'btn btn-outline-success p-2 mt-3'>
+                    LOG IN 
                 </button>
             </form>
         </div>

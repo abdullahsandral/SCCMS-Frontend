@@ -5,7 +5,6 @@ import classes from './ImageInput.module.css';
 const ImageInput = props =>
 {
     const [image , setImage] = useState();
- //   const [validImage , setValidImage] = useState(false);
     const [imagePreview , setImagePreview] = useState(props.src);
     const fileInputRef = useRef();
 
@@ -31,7 +30,6 @@ const ImageInput = props =>
         {
             pickedImage  = e.target.files[0];
             setImage(pickedImage);
-            //setValidImage(true);
             if(pickedImage.size > 5242880) alert(`WARRNING \nImage is too Large\nPlease Replace with another one\nMAXIMUM IMAGE SIZE = ${props.maxSize||5}MB`)
             pickedImageISValid = true
         }
@@ -40,8 +38,8 @@ const ImageInput = props =>
         props.onInputChange(props.id, pickedImage, pickedImageISValid)
     }
 
-    const onInputChange = props.onInputChange, id = props.id;
-    useEffect( () => {if(imagePreview) onInputChange(id, image || imagePreview,true) },[id,imagePreview,onInputChange, image])
+    // const onInputChange = props.onInputChange, id = props.id;
+    // useEffect( () => {if(imagePreview) onInputChange(id, image || imagePreview,true) },[id,imagePreview,onInputChange, image])
 
     return(
         <>

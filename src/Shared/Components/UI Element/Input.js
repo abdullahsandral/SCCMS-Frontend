@@ -71,7 +71,11 @@ const Input = props =>
         {   
             onInputChange(id , inputValue , inputIsValid);
         }, [id , inputValue , inputIsValid , onInputChange])
-        
+
+	const { initialValue } = props
+	useEffect(() => {
+		dispatch({type : "CHANGE" , val : initialValue , validators : props.validators});
+	},[initialValue, props.validators])
 
     return (
         <div>

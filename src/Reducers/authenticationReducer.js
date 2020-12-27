@@ -2,10 +2,10 @@ import { USER_LOGGED_IN, LOGOUT_USER, SIGNIN_LOADING, SIGNIN_LOADING_OFF } from 
 
 const initialState = {
    authenticated: false,
-   user_email: null,
+   user_name: null,
    user_id: null,
-   user_image: null,
-   user_role: null,
+   image_url: null,
+   role: null,
    signin_loading: false
 }
 
@@ -13,24 +13,24 @@ const AuthenticationReducer = (state = initialState, action) => {
 
    switch (action.type) {
       case USER_LOGGED_IN:
-         const { user_role, user_id, user_email, user_image } = action.payload
+         const { user_id, image_url, user_name, role  } = action.payload
          return {
             ...state,
             authenticated: true,
-            user_email: user_email,
-            user_id: user_id,
-            user_image: user_image,
-            user_role: user_role,
+            user_name,
+            user_id,
+            image_url,
+            role,
             signin_loading: false
          }
       case LOGOUT_USER:
          return {
             ...state,
             authenticated: false,
-            user_email: null,
+            user_name: null,
             user_id: null,
-            user_image: null,
-            user_role: null,
+            image_url: null,
+            role: null,
          }
       case SIGNIN_LOADING:
          return {
