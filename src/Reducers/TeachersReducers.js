@@ -6,7 +6,7 @@ const initialState = {
    teachers_loading: false
 }
 
-const AuthenticationReducer = (state = initialState, action) => {
+const teachersReducer = (state = initialState, action) => {
    switch (action.type) {
       case GET_ALL_TEACHERS:
          return {
@@ -34,4 +34,4 @@ const AuthenticationReducer = (state = initialState, action) => {
          return state
    }
 }
-export default AuthenticationReducer;
+export default teachersReducer;

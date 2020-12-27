@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
     "bootstrap": "^4.4.1",
+    "dayjs": "^1.9.8",
     "rc-datepicker": "^5.0.16",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",

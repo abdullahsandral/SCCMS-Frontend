@@ -1,4 +1,4 @@
-import { USER_LOGGED_IN, LOGOUT_USER, SIGNIN_LOADING, SIGNIN_LOADING_OFF } from "../Actions/types"
+import { USER_LOGGED_IN, LOGOUT_USER, GET_ALL_USERS, USERS_LOADING, USERS_LOADING_OFF } from "../Actions/types"
 
 const initialState = {
    authenticated: false,
@@ -6,7 +6,8 @@ const initialState = {
    user_id: null,
    image_url: null,
    role: null,
-   signin_loading: false
+   users: null,
+   users_loading: false
 }
 
 const AuthenticationReducer = (state = initialState, action) => {
@@ -21,7 +22,13 @@ const AuthenticationReducer = (state = initialState, action) => {
             user_id,
             image_url,
             role,
-            signin_loading: false
+            users_loading: false
+         }
+      case GET_ALL_USERS:
+         return {
+            ...state,
+            users: action.payload,
+            users_loading: false
          }
       case LOGOUT_USER:
          return {
@@ -32,15 +39,15 @@ const AuthenticationReducer = (state = initialState, action) => {
             image_url: null,
             role: null,
          }
-      case SIGNIN_LOADING:
+      case USERS_LOADING:
          return {
             ...state,
-            signin_loading: true
+            users_loading: true
          }
-      case SIGNIN_LOADING_OFF:
+      case USERS_LOADING_OFF:
          return {
             ...state,
-            signin_loading: false
+            users_loading: false
          }
       default:
          return state

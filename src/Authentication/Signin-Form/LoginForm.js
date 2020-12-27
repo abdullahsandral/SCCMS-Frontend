@@ -17,7 +17,7 @@ const LoginForm = () =>
 { 
     const history = useHistory()
     const dispatch = useDispatch();
-    const { authenticated, signin_loading } = useSelector( state => {console.log(state); return state.authentication});
+    const { authenticated, users_loading } = useSelector( state => {console.log(state); return state.authentication});
 
     const [ loginData, setLoginData ] = useState({ user_name: '', password: '', role: '' });
     const [ loginDataErrors, setLoginDataErrors ] = useState({ user_name: false, password: false, role: false });
@@ -51,7 +51,7 @@ const LoginForm = () =>
     const { user_name, role, password} = loginData
     return(
         <div className={classes.center}>
-             {signin_loading && 
+             {users_loading && 
             <Backdrop>
                 <Spinner />
                 <h2 style={{color:'gold'}}>Signing In</h2>

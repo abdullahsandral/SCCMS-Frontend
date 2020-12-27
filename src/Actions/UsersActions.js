@@ -1,16 +1,26 @@
 import Axios from 'axios';
 
-import { USER_LOGGED_IN, SIGNIN_LOADING, LOGOUT_USER, SIGNIN_LOADING_OFF } from "./types";
+import { USER_LOGGED_IN, USERS_LOADING, GET_ALL_USERS, LOGOUT_USER, USERS_LOADING_OFF } from "./types";
 
 export const UserLogin = userData => async dispatch => {
     try {
-        dispatch({ type: SIGNIN_LOADING});
+        dispatch({ type: USERS_LOADING});
         const res = await Axios.post('shared/signin',userData);
 
         localStorage.setItem('user',JSON.stringify(res.data));
         dispatch({ type: USER_LOGGED_IN, payload:res.data });
     } catch (error) {
-        dispatch({ type: SIGNIN_LOADING_OFF});
+        dispatch({ type: USERS_LOADING_OFF});
+    }
+}
+
+export const getAllUsers = () => async dispatch => {
+    try {
+        dispatch({ type: USERS_LOADING});
+        const res = await Axios.get('shared/allusers');
+        dispatch({ type: GET_ALL_USERS, payload:res.data });
+    } catch (error) {
+        dispatch({ type: USERS_LOADING_OFF});
     }
 }
 

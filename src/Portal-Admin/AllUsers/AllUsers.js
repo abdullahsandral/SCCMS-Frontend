@@ -1,47 +1,41 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useEffect }  from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Spinner from '../../Shared/Components/UI Element/Spinner';
 import UserItem from './UserItem/UserItem';
 import classes from './AllUsers.module.css';
+import { getAllUsers } from '../../Actions/UsersActions';
+import isEmpty from '../../Shared/Util/Validators/isEmpty';
 
 const AllUsers = props =>
 {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const { users, users_loading } = useSelector( state => state.authentication);
 
     useEffect( ()=>
     {
-       const getAllUsers = async () => 
-       {
-            try 
-            {
-                const response = await fetch('http://localhost:5000/api/shared/allusers');
-                const data = await response.json();
-                
-                if(response.ok) 
-                {setUsers(data);
-                setLoading(false);}
-                
-                else    {setLoading(false); throw new Error(response)}
-                
-            } catch (error) { alert(error.message); setLoading(false);   }
-       }; getAllUsers();
-    },[]);
+      dispatch(getAllUsers());
+    },[dispatch]);
 
 
     return <>
         <div className={classes.allUsers}>
             <h3>All Users</h3>
 
-            {loading && <div className={classes.loading}> <Spinner /> <h3>Loading Users...</h3> </div>}
+            {(users_loading || (!users_loading && users === null)) &&
+                <div className={classes.loading}> 
+                    <Spinner />
+                    <h3>Loading Users...</h3>
+                </div>
+            }
 
-            {!loading && users.length<=0 && <h3>No User Found</h3>   }
+            {!users_loading && isEmpty(users) && users !== null && <h3>No User Found</h3>   }
             
-            {!loading && users.length>0 && <>
+            {!users_loading && !isEmpty(users) && <>
             <div className={classes.allUsersHeader}>
                 <div>ID</div>
                 <div>Name</div>
-                <div>Contact Number</div>
+                <div>User Name</div>
                 <div>Role</div>
             </div>
             
@@ -49,12 +43,11 @@ const AllUsers = props =>
                 <ul>
                     {users.map( user => 
                     <UserItem 
-                    key={user.First_Name+user.Teacher_ID} 
-                    id={user.Teacher_ID} 
-                    name={user.First_Name} 
-                    email={user.Contact_Number} 
-                    //contact={user.Contact} 
-                    role={user.Role}/>)}
+                    key={user?.id} 
+                    id={user?.id} 
+                    name={user?.name} 
+                    user_name={user.user_name} 
+                    role={user.role}/>)}
                 </ul>
             </div></>
             }

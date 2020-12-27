@@ -8,10 +8,8 @@ import Dashboard from './Shared/Components/Dashboard/Dashboard';
 import AllUSers from './Portal-Admin/AllUsers/AllUsers';
 import Teachers from './Portal-Admin/Teachers/Teachers';
 import EditTeacher from './Portal-Admin/Teachers/EditTeacher/EditTeacer';
-import AddTeacher from './Portal-Admin/Teachers/AddTeacher/AddTeacher';
 import Students from './Portal-Admin/Students/Students';
 import EditStudent from './Portal-Admin/Students/EditStudent/EditStudent';
-import AddStudent from './Portal-Admin/Students/AddStudent/AddStudent';
 import Notifications from './Shared/Components/Notifications/Notifications';
 import AddNotification from './Shared/Components/Notifications/AddNotification/AddNotification';
 import EditNotification from './Shared/Components/Notifications/EditNotification/EditNotification';
@@ -41,7 +39,7 @@ if(!signin)
   Routes = <>
     <Switch>
       <Route path='/' exact>
-        <div className='mainScreen'></div>
+      <Signin />
       </Route>
       <Route path='/signin' exact>
         <Signin />
@@ -64,7 +62,7 @@ if(!signin)
           <EditTeacher/>
         </Route>
         <Route path='/addTeacher' exact>
-          <AddTeacher/>
+          <EditTeacher/>
         </Route>
         <Route path='/students' exact>
           <Students />
@@ -73,7 +71,7 @@ if(!signin)
           <EditStudent/>
         </Route>
         <Route path='/addStudent' exact>
-          <AddStudent/>
+          <EditStudent/>
         </Route>
         <Route path='/notifications' exact>
           <Notifications />

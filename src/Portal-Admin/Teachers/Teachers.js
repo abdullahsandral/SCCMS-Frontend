@@ -46,12 +46,12 @@ const Teachers = props =>
                 <ul>
                     {teachers?.map( teacher => 
                     <TeacherItem 
-                        key={teacher.ID}
-                        id={teacher.ID} 
-                        name={teacher.First_Name} 
-                        email={teacher.E_Mail} 
-                        contact={teacher.Contact_Number} 
-                        qualification={teacher.Qualification}/>)}
+                        key={teacher.id}
+                        id={teacher.id} 
+                        name={teacher.first_name} 
+                        email={teacher.email} 
+                        contact={teacher.contact_number} 
+                        qualification={teacher.qualification}/>)}
                 </ul>
             </div></>
             }

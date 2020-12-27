@@ -1,14 +1,25 @@
-import { SET_CLASSES } from '../Actions/types';
+import { GET_ALL_CLASSES, CLASSES_LOADING, CLASSES_LOADING_OFF } from '../Actions/types';
 const initialState = {
-	classes: []
+	classes: [],
+	classes_loading: null
 }
 
 const classesReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case SET_CLASSES:
+		case GET_ALL_CLASSES:
 			return {
 				...state,
 				classes: action.payload
+			}
+		case CLASSES_LOADING:
+			return {
+				...state,
+				classes_loading: true
+			}
+		case CLASSES_LOADING_OFF:
+			return {
+				...state,
+				classes_loading: false
 			}
 		default:
 			return state

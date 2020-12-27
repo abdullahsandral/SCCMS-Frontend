@@ -22,3 +22,27 @@ export const getSingleTeacher = id => async dispatch => {
         dispatch({ type: TEACHERS_LOADING_OFF});
     }
 }
+
+export const updateTeacher = (id, data, history) => async dispatch => {
+    try {
+        dispatch({ type: TEACHERS_LOADING } );
+        await Axios.post(`admin/teachers/${id}`,data);
+        dispatch({ type: TEACHERS_LOADING_OFF});
+        history && history.push('/teachers')
+    } catch (error) {
+        console.log('ERROR OCCURED')
+        dispatch({ type: TEACHERS_LOADING_OFF});
+    }
+}
+
+export const addTeacher = (data, history) => async dispatch => {
+    try {
+        dispatch({ type: TEACHERS_LOADING } );
+        await Axios.post(`admin/teachers`,data);
+        dispatch({ type: TEACHERS_LOADING_OFF});
+        history && history.push('/teachers')
+    } catch (error) {
+        console.log('ERROR OCCURED')
+        dispatch({ type: TEACHERS_LOADING_OFF});
+    }
+}

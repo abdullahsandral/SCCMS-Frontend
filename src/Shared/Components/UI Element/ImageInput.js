@@ -2,8 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import classes from './ImageInput.module.css';
 
-const ImageInput = props =>
-{
+const ImageInput = props => {
     const [image , setImage] = useState();
     const [imagePreview , setImagePreview] = useState(props.src);
     const fileInputRef = useRef();
@@ -38,6 +37,9 @@ const ImageInput = props =>
         props.onInputChange(props.id, pickedImage, pickedImageISValid)
     }
 
+    useEffect(() => {
+        setImagePreview(props.src)
+    },[props.src])
     // const onInputChange = props.onInputChange, id = props.id;
     // useEffect( () => {if(imagePreview) onInputChange(id, image || imagePreview,true) },[id,imagePreview,onInputChange, image])
 
