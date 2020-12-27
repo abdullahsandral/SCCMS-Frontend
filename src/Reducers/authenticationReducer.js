@@ -2,6 +2,8 @@ import { USER_LOGGED_IN, LOGOUT_USER, GET_ALL_USERS, USERS_LOADING, USERS_LOADIN
 
 const initialState = {
    authenticated: false,
+   id: null,
+   name: null,
    user_name: null,
    user_id: null,
    image_url: null,
@@ -14,10 +16,12 @@ const AuthenticationReducer = (state = initialState, action) => {
 
    switch (action.type) {
       case USER_LOGGED_IN:
-         const { user_id, image_url, user_name, role  } = action.payload
+         const { id, name, user_id, image_url, user_name, role  } = action.payload
          return {
             ...state,
             authenticated: true,
+            id,
+            name,
             user_name,
             user_id,
             image_url,
@@ -34,6 +38,8 @@ const AuthenticationReducer = (state = initialState, action) => {
          return {
             ...state,
             authenticated: false,
+            id: null,
+            name: null,
             user_name: null,
             user_id: null,
             image_url: null,

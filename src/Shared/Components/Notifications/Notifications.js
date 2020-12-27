@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getAllNotifications } from '../../../Actions/NotificationsActions';
 
 import Spinner from '../../Components/UI Element/Spinner';
 import NotificationItem from './NotificationItem';
@@ -7,29 +9,13 @@ import classes from './Notifictions.module.css';
 
 const Notifictions = props =>
 {
-    
-    const [notifications, setNotifications] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { notifications, notifications_loading } = useSelector( state => state?.notifications );
+    const dispatch = useDispatch();
 
     useEffect(() =>
     {
-        const getNotifications = async () =>
-        {
-            try 
-            {
-                const response = await fetch(`http://localhost:5000/api/shared/notifications`);
-                const data = await response.json();
-                
-                if(response.ok) 
-                {setNotifications(data);
-                setLoading(false);}
-                
-                else    {setLoading(false); throw new Error(response)}
-                
-            } catch (error) { alert(error.message); setLoading(false);   }
-        }
-        getNotifications();
-    },[])
+        dispatch( getAllNotifications() );
+    },[dispatch])
 
     return <>
         <div className={classes.notifications}>        
@@ -37,23 +23,23 @@ const Notifictions = props =>
                 <h3>Notifications</h3>
                 <Link to='/addNotification'><button className='btn btn-success'>ADD NOTIFICATION</button></Link>
             </div>
-            {loading ? 
+            {notifications_loading || (!notifications_loading && notifications === null) ? 
             <div className={classes.loading}>
                 <Spinner /> <h3>Loading Notifications...</h3> 
-            </div>
-            :   <>
+            </div> :
+            <>
                 {notifications && <>
                     { notifications.length<=0 ? <h3>No Notification Found...</h3>  :
                     <ul>
                         {notifications.map(notfy => 
                             <NotificationItem 
-                                key={notfy.Notification_ID}
-                                id={notfy.Notification_ID}
-                                creator={notfy.Creator_Name} 
+                                key={notfy.id}
+                                id={notfy.id}
+                                creator={notfy.user} 
                                 date={notfy.createdAt} 
-                                subject={notfy.Notification_Subject} 
-                                image={notfy.Notification_Image} 
-                                description={notfy.Description}/>)}
+                                subject={notfy.subject} 
+                                image={notfy.image_url} 
+                                description={notfy.description}/>)}
                     </ul>}
                     </>}</>
             }

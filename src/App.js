@@ -11,7 +11,6 @@ import EditTeacher from './Portal-Admin/Teachers/EditTeacher/EditTeacer';
 import Students from './Portal-Admin/Students/Students';
 import EditStudent from './Portal-Admin/Students/EditStudent/EditStudent';
 import Notifications from './Shared/Components/Notifications/Notifications';
-import AddNotification from './Shared/Components/Notifications/AddNotification/AddNotification';
 import EditNotification from './Shared/Components/Notifications/EditNotification/EditNotification';
 import AddSubjects from './Portal-Admin/AddSubjects/AddSubjects';
 import TimeTable from './Portal-Admin/TimeTable/TimeTable';
@@ -77,13 +76,13 @@ if(!signin)
           <Notifications />
         </Route>
         <Route path='/addNotification' exact>
-          <AddNotification />
-        </Route>
-        <Route path='/addSubjects' exact>
-          <AddSubjects />
+          <EditNotification />
         </Route>
         <Route path='/editNotification/:nID' exact>
           <EditNotification />
+        </Route>
+        <Route path='/addSubjects' exact>
+          <AddSubjects />
         </Route>
         <Route path='/timetable' exact>
           <TimeTable />

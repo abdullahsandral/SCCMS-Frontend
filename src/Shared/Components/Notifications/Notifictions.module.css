@@ -17,7 +17,6 @@
 {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
 } 
 .loading
 {
@@ -50,11 +49,24 @@
     flex-direction: column;
     padding-right: 5px;
 }
+.first img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
 .first div:first-child
 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+.first .creator {
+    display: flex;
+    align-items: center;
+}
+.first .creator h6{
+    margin: 0;
+    margin-left: 10px;
 }
 .second
 {

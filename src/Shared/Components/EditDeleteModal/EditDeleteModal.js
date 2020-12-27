@@ -10,7 +10,7 @@ const EditDeleteModal = props =>
 
     return(
         <div className={classes.backdrop}>
-            <div className={classes.Btns}>
+            <div className={classes.Btns} onClick={ e => e.stopPropagation()}>
                 <Link to={`${props.link}`} ><button onClick={editUser}>EDIT</button></Link>
                 <button onClick={deleteUser} style={{backgroundColor: 'red'}}>DELETE</button>
             </div>

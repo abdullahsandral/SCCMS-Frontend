@@ -17,7 +17,7 @@ const LoginForm = () =>
 { 
     const history = useHistory()
     const dispatch = useDispatch();
-    const { authenticated, users_loading } = useSelector( state => {console.log(state); return state.authentication});
+    const { authenticated, users_loading } = useSelector( state => state.authentication);
 
     const [ loginData, setLoginData ] = useState({ user_name: '', password: '', role: '' });
     const [ loginDataErrors, setLoginDataErrors ] = useState({ user_name: false, password: false, role: false });
