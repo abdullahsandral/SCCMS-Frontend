@@ -1,4 +1,4 @@
-.timeTable
+.background
 {
     display: flex;
     flex-direction: column;
@@ -6,23 +6,28 @@
     justify-content: center;
     padding: 2rem 0;
     background-color: darkcyan;
-    min-height: 100vh;
+    min-height: calc(100vh - 4rem);
     /* margin-top: 4rem; */
 }
-.timeTable h3 
-{
-    color: gold;
+.item:hover, .active_item {
+    background-color: #5897fb;
+    color: white;
+    cursor: pointer;
+}
+.custom-shadow {
+    box-shadow: 1px 0px 5px 2px black;
 }
 .allForms
 {
     width: 90%;
     background-color: darkcyan;
     padding: 1rem;
-    display: grid;
-    grid-template-columns: 1fr;
     border-radius: 5px;
     margin: 1rem 0;
     box-shadow: 1px 0px 5px 2px black;
+}
+.gold {
+    color: gold;
 }
 .classSelecter
 {
