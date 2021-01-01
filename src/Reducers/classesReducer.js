@@ -1,7 +1,7 @@
 import { GET_ALL_CLASSES, CLASSES_LOADING, CLASSES_LOADING_OFF } from '../Actions/types';
 const initialState = {
 	classes: [],
-	classes_loading: null
+	classes_loading: false
 }
 
 const classesReducer = (state = initialState, action) => {
@@ -9,7 +9,8 @@ const classesReducer = (state = initialState, action) => {
 		case GET_ALL_CLASSES:
 			return {
 				...state,
-				classes: action.payload
+				classes: action.payload,
+				classes_loading: false
 			}
 		case CLASSES_LOADING:
 			return {
