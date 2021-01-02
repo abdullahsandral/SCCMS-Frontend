@@ -55,7 +55,7 @@ const ImageInput = props => {
             />
 
             <div className={classes.imgDiv}>
-                <button type='button'   onClick = {pickImageHandler}>
+                <button type='button' className='w-100' onClick = {pickImageHandler}>
                     {imagePreview &&  <img src={imagePreview} style={{maxHeight: props.height}}  alt='PREVIEW'/>}
                     {!imagePreview && <b><p  style={{maxHeight: props.height}}>Please Pick an Image</p></b>}
                 </button>

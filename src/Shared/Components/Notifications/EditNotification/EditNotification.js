@@ -15,7 +15,7 @@ const EditNotification = props => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { single_notification: notification, notifications_loading } = useSelector(state => state?.notifications);
-    const { id: creator_id } = useSelector( state => state.authentication);
+    const { id: creator_id } = useSelector(state => state.authentication);
 
     const [notificationData, setNotificationData] = useState({ ...notificationDataFormat })
     const [notificationDataErrors, setNotificationDataErrors] = useState({ ...notificationDataFormat })
@@ -24,31 +24,31 @@ const EditNotification = props => {
         nID && dispatch(getSingleNotification(nID));
     }, [dispatch, nID])
 
-    useEffect( () => {
+    useEffect(() => {
         nID && notification && setNotificationData({ ...notification })
-      }, [nID, notification])
+    }, [nID, notification])
 
-    const inputChangeHandler = ({ target: { name, value }}) => {
-        setNotificationData( { ...notificationData, [name]: value } );
-        !isEmpty(value) && setNotificationDataErrors( { ...notificationDataErrors, [name]: false } )
+    const inputChangeHandler = ({ target: { name, value } }) => {
+        setNotificationData({ ...notificationData, [name]: value });
+        !isEmpty(value) && setNotificationDataErrors({ ...notificationDataErrors, [name]: false })
     }
     const validate = () => {
         let valid = true;
-          const errors = { ...notificationDataErrors }
-          for(let field in notificationData) {
-              if(!notificationData[field]) {
-                  errors[field] = true;
-                  valid=false;
-              }
-          }
-          setNotificationDataErrors(errors)
-          return valid;
-     }
+        const errors = { ...notificationDataErrors }
+        for (let field in notificationData) {
+            if (!notificationData[field]) {
+                errors[field] = true;
+                valid = false;
+            }
+        }
+        setNotificationDataErrors(errors)
+        return valid;
+    }
     const editNotificationHandler = async e => {
         e.preventDefault();
 
         let isValidForm = validate();
-        if(!isValidForm) return;
+        if (!isValidForm) return;
 
         const { subject, description, image_url } = notificationData;
 
@@ -58,7 +58,7 @@ const EditNotification = props => {
         NotificationFormData.append('notificationImage', image_url);
         console.log('Creator ID : ', creator_id)
         !nID && NotificationFormData.append('creator_id', creator_id);
-        
+
         nID ? dispatch(updateNotification(nID, NotificationFormData, history)) : dispatch(addNotification(NotificationFormData, history))
     }
 
@@ -66,26 +66,40 @@ const EditNotification = props => {
     if (!notification && nID) return <div className={classes.editNotification}> <h3>Loading...</h3> </div>
     else
         return <>
-            <div className={classes.editNotification}>
+            <div className='background'>
                 {notifications_loading && <LoadingSpinner name={`${nID ? 'Editing Notification Data' : 'Adding Notification'}`} />}
                 <h3>Edit Notification</h3>
-                <form onSubmit={editNotificationHandler}>
-                    <div className={classes.subject}>
-                        <input name="subject" type='text' value={subject} placeholder={`Enter Notification Subject`} onChange={inputChangeHandler} />
-                        {notificationDataErrors?.subject && <p>Field is required</p>}
+                <form onSubmit={editNotificationHandler} className='custom-form'>
+                    <div className='row'>
+                        <div className='col-12 col-md-8 d-flex flex-column order-2 order-md-1'>
+                            <input
+                                className='w-100 form-control'
+                                name="subject"
+                                type='text'
+                                value={subject}
+                                placeholder={`Enter Notification Subject`}
+                                onChange={inputChangeHandler}
+                            />
+                            {notificationDataErrors?.subject && <p className='m-0 error-color'>Field is required</p>}
+                            <textarea
+                                className='w-100 mt-2 flex-grow-1 form-control'
+                                name="description"
+                                type='text'
+                                value={description}
+                                placeholder={`Enter Notification Description`}
+                                onChange={inputChangeHandler}
+                            />
+                            {notificationDataErrors?.description && <p className='m-0 error-color'>Field is required</p>}
+                        </div>
+                        <div className='col-12 col-md-4 order-1 order-md-2'>
+                            <ImageInput
+                                id='image_url' Error="Please Pick an Image" height='200px'
+                                src={image_url ? `http://localhost:5000/uploads/images/${image_url}` : ''}
+                                onInputChange={(id, value) => inputChangeHandler({ target: { name: id, value } })}
+                            />
+                        </div>
                     </div>
-                    <div className={classes.image}>
-                        <ImageInput
-                            id='image_url' Error="Please Pick an Image" height='200px'
-                            src={image_url ? `http://localhost:5000/uploads/images/${image_url}` : ''}
-                            onInputChange={(id, value) => inputChangeHandler({ target: { name: id, value } })}
-                        />
-                    </div>
-                    <div className={classes.description}>
-                        <textarea name="description" type='text' value={description} placeholder={`Enter Notification Description`} onChange={inputChangeHandler} />
-                        {notificationDataErrors?.description && <p>Field is required</p>}
-                    </div>
-                    <button className={`btn btn-outline-success`}>UPDATE Notification</button>
+                    <button className={`btn w-100 mt-3 btn-success`}>UPDATE Notification</button>
                 </form>
             </div>
         </>

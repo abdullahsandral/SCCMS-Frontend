@@ -13,6 +13,7 @@ import EditStudent from './Portal-Admin/Students/EditStudent/EditStudent';
 import Notifications from './Shared/Components/Notifications/Notifications';
 import EditNotification from './Shared/Components/Notifications/EditNotification/EditNotification';
 import AddSubjects from './Portal-Admin/AddSubjects/AddSubjects';
+import EditSubjects from './Portal-Admin/AddSubjects/EditSubject/EditSubject';
 import TimeTable from './Portal-Admin/TimeTable/TimeTable';
 import ExamSchedule from './Portal-Admin/ExamSchedule/ExamSchedule';
 
@@ -83,6 +84,9 @@ if(!signin)
         </Route>
         <Route path='/addSubjects' exact>
           <AddSubjects />
+        </Route>
+        <Route path='/editSubject/:classId' exact>
+          <EditSubjects />
         </Route>
         <Route path='/timetable' exact>
           <TimeTable />
