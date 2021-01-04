@@ -96,6 +96,16 @@ const EditStudent = props => {
                                 <option value={classs.id}>{classs.name}</option>
                             )}
                         </select> 
+                        {/* <Select
+                        value={selectedClass}
+                        onChange={classChangeHandler}
+                        isSearchable
+                        placeholder='Select a Class'
+                        name="classes"
+                        options={classes}
+                        getOptionValue={option => option['id']}
+                        getOptionLabel={option => `${option.name}`}
+                    /> */}
                         {studentDataErrors?.class_id && <p>Field is required</p>}
                     </div>
                     <div>

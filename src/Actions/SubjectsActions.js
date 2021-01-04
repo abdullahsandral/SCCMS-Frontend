@@ -11,12 +11,11 @@ export const getOneClassSubjects = classId => async dispatch => {
     }
 }
 
-export const updateOneClassSubjects = (classId ,subjectData) => async dispatch => {
-    try {console.log(subjectData)
+export const updateOneClassSubjects = (classId ,subjectData, deletedSubjects ) => async dispatch => {
+    try {
         dispatch({ type: SUBJECTS_LOADING });
-        const res = await Axios.post(`/admin/subjects/${classId}`, { subjects: subjectData });
-        console.log(res)
-        // dispatch({ type: GET_ONE_CLASS_SUBJECTS, payload: res.data });
+        const res = await Axios.post(`/admin/subjects/${classId}`, { subjects: subjectData, deletedSubjects });
+        dispatch({ type: GET_ONE_CLASS_SUBJECTS, payload: res.data });
     } catch (error) {
         dispatch({ type: SUBJECTS_LOADING_OFF });
     }
